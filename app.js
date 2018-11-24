@@ -1,105 +1,24 @@
-const Header = (props) => {
-  return (
-    <header>
-      <span className="stats">Players: {props.totalPlayers}</span> 
-      <h1>{ props.title }</h1>
-    </header>
-  );
-}
+const title = React.createElement(
+  'h1', // Usually a string that represents an HTML element or tag  TYPE
+  { id: 'main-title', title: 'This is a title'}, // Object containing any attribute or value you want PROPS
+  'My First React Element!' // Contents or Children of the element you're creating  CHILDREN
+);
 
-class Counter extends React.Component {
-  
-  state = { 
-    score: 100 
-  };
-  
-  incrementScore() {
-    this.setState( prevState => ({ 
-      score: prevState.score + 1 
-    }));
-  }
-  
-  decrementScore() {
-    this.setState( prevState => ({ 
-      score: prevState.score - 1 
-    }));
-  }
 
-  render() {
-    return (
-      <div className="counter">
-        <button className="counter-action decrement" onClick={() => this.decrementScore()}> - </button>
-        <span className="counter-score"> {this.state.score} </span>
-        <button className="counter-action increment" onClick={() => this.incrementScore()}> + </button>
-      </div>    
-    );
-  }
-}
-  
-const Player= (props) => {
-  return (
-    <div className="player">
-      <span className="player-name">
-        <button className="remove-player" onClick={() => props.removePlayer(props.id)}>✖</button>
-        { props.name }
-      </span>
+const desc = React.createElement('p', null, 'I just learned how to create a React node and render it into the DOM');
 
-      <Counter />
-    </div>
-  );
-}
+const header = React.createElement('header', null, title, desc);
 
-class App extends React.Component {
-  
-  state = {
-    players: [
-      {
-        name: "Guil",
-        id: 1,
-      },
-      {
-        name: "Treasure",
-        id: 2,    
-      },
-      {
-        name: "Ashley",
-        id: 3,    
-      },
-      {
-        name: "James",
-        id: 4,    
-      }
-    ]
-  };
-        
-  handleRemovePlayer = (id) => {
-    this.setState( prevState => {
-      return {
-        players: prevState.players.filter(p => p.id !== id)
-      }
-    });
-  }
-  
-  render() {
-    return (
-      <div className="scoreboard">
-        <Header 
-          title="My Scoreboard" 
-          totalPlayers={this.state.players.length} 
-        />
-        
-        {/* Players list */}
-        {this.state.players.map( player =>
-          <Player 
-            removePlayer={ this.handleRemovePlayer }      
-            name={player.name}
-            id={player.id}
-            key={player.id.toString()}
-          />
-        )}  
-      </div>
-    );
-  }
-}  
+console.log(title);
 
-ReactDOM.render(<App />, document.getElementById('root'));
+
+
+// React does not create real DOM nodes
+// React create plain javascript that explains DOM nodes
+// ReactDOM.render()
+
+ReactDOM.render(header,document.getElementById('root')
+);
+
+// React only manages what gets rendered to the DOM via ReactDOM.render
+// It's the job of render() to interpret the element objects and create DOM nodes out of them
